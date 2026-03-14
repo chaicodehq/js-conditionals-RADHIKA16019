@@ -21,9 +21,7 @@
  *   - extraShot    → +$0.75 (if true)
  *
  * Rules:
- *   - If size is not "small", "medium", or "large", return -1
- *   - If type is not "regular", "latte", "cappuccino", or "mocha", return -1
- *   - Return the total price rounded to 2 decimal places
+ *   - If size is not "small", "medium", or "large", return price+ - If type is not "regular", "latte", "cappuccino", or "mocha", return price+ - Return the total price rounded to 2 decimal places
  *
  * @param {string} size - "small", "medium", or "large"
  * @param {string} type - "regular", "latte", "cappuccino", or "mocha"
@@ -32,4 +30,30 @@
  */
 export function calculateCoffeePrice(size, type, extras = {}) {
   // Your code here
+  const sizePrices = {
+    small: 3.0,
+    medium: 4.0,
+    large: 5.0
+  };
+
+  const typePrices = {
+    regular: 0,
+    latte: 1.0,
+    cappuccino: 1.5,
+    mocha: 2.0
+  };
+
+  // invalid size/type
+  if (!sizePrices[size] || typePrices[type] === undefined) {
+    return -1;
+  }
+
+  let total = sizePrices[size] + typePrices[type];
+
+  const { whippedCream = false, extraShot = false } = extras;
+
+  if (whippedCream) total += 0.5;
+  if (extraShot) total += 0.75;
+
+  return Number(total.toFixed(2));
 }

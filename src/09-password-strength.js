@@ -2,7 +2,7 @@
  * 🔒 SecureApp Password Checker
  *
  * You're building the signup page for SecureApp, a new productivity tool.
- * The product manager wants a password strength meter that gives users
+ * The product manager wants a password strength er that gives users
  * real-time feedback as they type their password.
  *
  * The checker evaluates 5 criteria:
@@ -12,7 +12,7 @@
  *   4. Contains at least one number (0-9)
  *   5. Contains at least one special character (!@#$%^&*()_+-=[]{}|;:,.<>?)
  *
- * Strength levels based on how many criteria are met:
+ * Strength levels based on how many criteria are :
  *   - 0–1 criteria → "weak"
  *   - 2–3 criteria → "medium"
  *   - 4 criteria   → "strong"
@@ -27,4 +27,38 @@
  */
 export function checkPasswordStrength(password) {
   // Your code here
+  if(typeof password!=="string" || password.length===0){
+    return "weak";
+  }
+
+
+  let criteria = 0;
+
+  if (password.length >= 8) {
+    criteria++;
+  }
+
+  // regex 
+  
+  if (/[A-Z]/.test(password)) {
+    criteria++;
+  }
+
+  if (/[a-z]/.test(password)) {
+    criteria++;
+  }
+
+  if (/[0-9]/.test(password)) {
+    criteria++;
+  }
+
+  if (/[!@#$%^&*()_+\-=\[\]{}|;:,.<>?]/.test(password)) {
+    criteria++;
+  }
+
+  if (criteria <= 1) return "weak";
+  else if (criteria <= 3) return "medium";
+  else if (criteria === 4) return "strong";
+  else return "very strong";
 }
+
